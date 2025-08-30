@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Popup</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: arial, sans-serif;
+        }
+        .cookie-popup{
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background-color: aquamarine;
+            color: black;
+            padding: 15px 20px;
+            border-radius: 10px;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .cookie-popup p{
+            margin: 0;
+            flex: 1;
+        }
+        .cookie-popup button{
+            background-color: aquamarine;
+            border-radius: 15px;
+            border: solid 1px white;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+        .cookie-popup button#reject-btn{
+            background-color: #f44336;
+        }
+        .cookie-popup button:hover{
+            opacity: 0.9;
+        }
+        .hidden{
+            display: none;
+        }
+        @keyframes fadeIn {
+            from{opacity: 0; transform: translateY(20px);}
+            to{opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <div id="cookie-popup" class="cookie-popup">
+        <p>We use cookies to improve your expreinces.</p>
+        <div>
+            <button id="accept-btn">Accept</button>
+            <button id="reject-btn">Reject</button>
+        </div>
+    </div>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        const Popup =document.getElementById('cookie-popup')
+        const reject = document.getElementById('reject-btn')
+        const accept = document.getElementById('accept-btn')
+
+        const content = localStorage.getItem('cookieConsent');
+
+        if(content === "accepted"){
+            Popup.classList.add("hidden");
+        }
+
+        accept.addEventListener("click", ()=>{
+            localStorage.setItem('cookieConsent', "accepted");
+            Popup.classList.add('hidden');
+        })
+
+        reject.addEventListener("click", ()=>{
+            localStorage.setItem('cookieConsent', "rejected");
+            alert('You rejected cookies. this popup will showing until you accept.');
+        })
+    })
+</script>
+</html>
